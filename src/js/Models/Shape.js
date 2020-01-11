@@ -2,19 +2,19 @@ import * as PIXI from 'pixi.js';
 import { getRandomColor } from '../Views/base';
 
 export default class Shape {
-  constructor( xC, yC, shape, app ) {
+  constructor( xC, yC, shape, app ,yVelocity = 0) {
     this.xC = xC;
     this.yC = yC;
     this.shape = shape;
     this.app = app;
-    this.yVelocity = 0.1;
+    this.yVelocity = yVelocity === 0 ? 0.1 : yVelocity * 0.1;
   }
 
   createShape() {
     const shape = new PIXI.Graphics();
     shape.beginFill( getRandomColor() );
     if ( this.shape === 'rect' ) {
-      shape.drawRect( this.xC, this.yC - 50, 100, 100 );
+      shape.drawRect( this.xC, this.yC, 100, 100 );
     } else if ( this.shape === 'ellipse' ) {
       shape.drawEllipse( this.xC, this.yC, 60, 40 );
     } else if (this.shape === 'circle'){
@@ -35,5 +35,9 @@ export default class Shape {
     this.app.ticker.add( () => {
       shape.y += this.yVelocity;
     } );
+    setTimeout(()=> {
+      this.app.stage.removeChild(shape)
+    },10000/this.yVelocity)
   }
 }
+

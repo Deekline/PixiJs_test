@@ -1,5 +1,8 @@
 export const elements = {
-  gameBoard: document.querySelector( '.game' )
+  gameCanvas: document.querySelector('canvas'),
+  gameBoard: document.querySelector( '.game' ),
+  gameGravity: document.querySelector('.gravity'),
+  gravityNum: document.querySelector('.number-grav'),
 };
 
 export const getRandomColor = () => {
